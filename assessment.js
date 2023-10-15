@@ -1,8 +1,10 @@
 'use strict';
 const userNameInput    = document.getElementById('user-name');
 const assessmentButton = document.getElementById('assessment');
-const resultDivision   = document.getElementById('result-area');
+const resultDivided   = document.getElementById('result-area');
 const tweetDivision    = document.getElementById('tweet-area');
+
+
 
 assessmentButton.onclick = () => {
   const userName = userNameInput.value;
@@ -11,17 +13,33 @@ assessmentButton.onclick = () => {
   }
   // 診断表示エリアの作成
   // 作成の前にタグを空にする
-  resultDivision.innerText = '';
+  resultDivided.innerText = '';
   // 結果の追加
-  const header = document.createElement('h3'); // h3タグを作る
-  header.innerText = '診断結果';
-  resultDivision.appendChild(header);
+  // headerDividedの作成
+  const headerDivided = document.createElement('div'); //divタグを作る
+  headerDivided.setAttribute('class', 'card-header');
+  headerDivided.innerText = '診断結果';
+  
+  //bodyDividedの作成
+  const bodyDivided = document.createElement('div')
+   bodyDivided.setAttribute('class','cardbody')
 
   const paragraph =document.createElement('p');
+  paragraph.setAttribute('class','card-text');
   const result = assessment(userName);
   paragraph.innerText = result;
-  resultDivision.appendChild(paragraph);
-  // TODO ツイートエリアの作成
+  bodyDivided.appendChild(paragraph);
+
+
+  //resultDividedにcardスタイルを追加
+  resultDivided.setAttribute('class','card');
+  resultDivided.setAttribute('style','max-width: 700px');
+  
+  //hederDividedとbodyDivededをresultDividedに追加
+  resultDivided.appendChild(headerDivided);
+  resultDivided.appendChild(bodyDivided);
+
+  //ツイートエリアの作成
   tweetDivision.innerText = '';
   const hrefValue = `https://twitter.com/intent/tweet?button_hashtag=${encodeURIComponent('あなたのいいところ')}&ref_src=twsrc%5Etfw`;
   const anchor = document.createElement('a');
